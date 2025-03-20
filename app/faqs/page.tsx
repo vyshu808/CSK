@@ -11,7 +11,7 @@ interface FaqItem {
 }
 
 interface FaqsPageProps {
-    faqs: FaqItem[];
+    faqs: FaqItem[] | undefined; // Allow undefined faqs prop
 }
 
 const FaqsPage: React.FC<FaqsPageProps> = ({ faqs }) => {
@@ -23,7 +23,7 @@ const FaqsPage: React.FC<FaqsPageProps> = ({ faqs }) => {
 
     return (
         <div className="space-y-4">
-            {faqs.map((faq, index) => (
+            {faqs?.map((faq, index) => ( // Add null check before mapping
                 <Card key={index}>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-lg font-semibold cursor-pointer" onClick={() => toggleExpand(index)}>

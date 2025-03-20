@@ -1,4 +1,3 @@
-// ./components/SharePriceChart.tsx
 "use client";
 import { useMemo } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
@@ -14,13 +13,16 @@ interface SharePriceChartProps {
     daily: ChartData[];
     weekly: ChartData[];
     monthly: ChartData[];
-  };
+  } | undefined; // Allow for undefined data
 }
 
 export default function SharePriceChart({ data }: SharePriceChartProps) {
 
   // Combine all data into a single array for the chart
   const allData = useMemo(() => {
+    if (!data) {
+      return []; // Return an empty array if data is undefined
+    }
     return [...data.daily, ...data.weekly, ...data.monthly];
   }, [data]);
 

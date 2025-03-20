@@ -1,4 +1,3 @@
-// page.tsx
 import SharePriceChart from './components/SharePriceChart';
 import TradingForms from './components/TradingForms';
 import { Card } from "@/components/ui/card";
@@ -211,7 +210,7 @@ export default function Home() {
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
           <div className="lg:col-span-2">
-            <SharePriceChart data={mockChartData} /> {/* Passes the mock data that type checks against the ChartData Interface*/}
+            {mockChartData && <SharePriceChart data={mockChartData} />} {/* Passes the mock data that type checks against the ChartData Interface*/}
           </div>
           <div className="lg:col-span-1">
             <TradingForms />
@@ -269,22 +268,22 @@ export default function Home() {
           <h2 className="text-2xl font-bold mb-6">Fundamentals</h2>
           <Card className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div>
+              {fundamentalsData?.companyDetails && <div>
                 {Object.entries(fundamentalsData.companyDetails).map(([key, value]) => (
                   <div key={key} className="flex justify-between py-3 border-b">
                     <span className="text-muted-foreground">{key}</span>
                     <span className="font-medium">{value}</span>
                   </div>
                 ))}
-              </div>
-              <div>
+              </div>}
+              {fundamentalsData?.marketMetrics && <div>
                 {Object.entries(fundamentalsData.marketMetrics).map(([key, value]) => (
                   <div key={key} className="flex justify-between py-3 border-b">
                     <span className="text-muted-foreground">{key}</span>
                     <span className="font-medium">{value}</span>
                   </div>
                 ))}
-              </div>
+              </div>}
             </div>
           </Card>
         </section>
@@ -311,7 +310,7 @@ export default function Home() {
                       </tr>
                     </thead>
                     <tbody>
-                      {financialsData.incomeStatement.map((item) => (
+                      {financialsData.incomeStatement && financialsData.incomeStatement.map((item) => (
                         <tr key={item.label} className="border-b">
                           <td className="py-2">{item.label}</td>
                           <td className="text-right">{item["2021"]}</td>
@@ -337,7 +336,7 @@ export default function Home() {
                       </tr>
                     </thead>
                     <tbody>
-                      {[...financialsData.balanceSheet.assets, ...financialsData.balanceSheet.liabilities].map((item) => (
+                     { financialsData.balanceSheet && [...financialsData.balanceSheet.assets, ...financialsData.balanceSheet.liabilities].map((item) => (
                         <tr key={item.label} className="border-b">
                           <td className="py-2">{item.label}</td>
                           <td className="text-right">{item["2021"]}</td>
@@ -363,7 +362,7 @@ export default function Home() {
                       </tr>
                     </thead>
                     <tbody>
-                      {financialsData.cashFlow.map((item) => (
+                      {financialsData.cashFlow && financialsData.cashFlow.map((item) => (
                         <tr key={item.label} className="border-b">
                           <td className="py-2">{item.label}</td>
                           <td className="text-right">{item["2021"]}</td>
@@ -395,7 +394,7 @@ export default function Home() {
                   </tr>
                 </thead>
                 <tbody>
-                  {financialsData.financialRatios.map((item) => (
+                 { financialsData.financialRatios && financialsData.financialRatios.map((item) => (
                     <tr key={item.label} className="border-b">
                       <td className="py-2">{item.label}</td>
                       <td className="text-right">{item["2021"]}</td>
@@ -425,7 +424,7 @@ export default function Home() {
                   </tr>
                 </thead>
                 <tbody>
-                  {financialsData.shareholdingPattern.map((item) => (
+                  {financialsData.shareholdingPattern && financialsData.shareholdingPattern.map((item) => (
                     <tr key={item.name} className="border-b">
                       <td className="py-2">{item.name}</td>
                       <td className="text-right">{item["2021"]}</td>
